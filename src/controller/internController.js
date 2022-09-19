@@ -11,6 +11,7 @@ const isValid = function (value) {
 //--------------------------create Intern--------------------------//
 
 const createIntern = async function (req, res) {
+    res.setHeader('Access-Control-Allow-Origin','*')
     try {
         data = req.body
         let { name, mobile, email, collegeName, isDeleted } = data
@@ -61,6 +62,7 @@ const createIntern = async function (req, res) {
 }
 //========================getDetails===================================
 const getIntership = async function (req, res) {
+    res.setHeader('Access-Control-Allow-Origin','*')
     try {
         const collegeName = req.query.collegeName
         if (!isValid(collegeName)) return res.status(400).send({ status: false, messege: "please provide college Name" })
@@ -69,7 +71,7 @@ const getIntership = async function (req, res) {
         if (!saveData) return res.status(400).send({ status: false, messege: "No college appears with this college name" });
         const saveInterns = await internModel.find({ collegeId: saveData._id }).select({ name: 1, email: 1, mobile: 1 })
         if (saveInterns.length == 0) {
-            return res.status(400).send({ status: false, message: "No interns data availabe in college" })
+            return res.status(404).send({ status: false, message: "No interns data availabe in college" })
         }
         const data = {
             name: saveData.name,

@@ -11,6 +11,7 @@ const regfname = /^[a-zA-Z,'.\s]{0,150}$/
 let urlreg = /^https?:\/\/(.+\/)+.+(\.(gif|png|jpg|jpeg|webp|svg|psd|bmp|tif))$/i
 
 const createCollege = async function (req, res) {
+    
     try {
         data = req.body;
 
